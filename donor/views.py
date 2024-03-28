@@ -4,6 +4,7 @@ from django.db.models import Sum,Q
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.auth import logout
 from django.conf import settings
 from datetime import date, timedelta
 from django.core.mail import send_mail
@@ -30,6 +31,8 @@ def donor_signup_view(request):
             my_donor_group[0].user_set.add(user)
         return HttpResponseRedirect('donorlogin')
     return render(request,'donor/donorsignup.html',context=mydict)
+
+
 
 
 def donor_dashboard_view(request):

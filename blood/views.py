@@ -4,6 +4,7 @@ from django.db.models import Sum,Q
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.auth import logout
 from django.conf import settings
 from datetime import date, timedelta
 from django.core.mail import send_mail
@@ -51,6 +52,11 @@ def home_view(request):
 
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')  
+    return render(request,'blood/index.html')
+
+
+def logout_view(request):
+    logout(request)
     return render(request,'blood/index.html')
 
 def is_donor(user):
@@ -246,3 +252,4 @@ def reject_donation_view(request,pk):
     donation.status='Rejected'
     donation.save()
     return HttpResponseRedirect('/admin-donation')
+
